@@ -1,0 +1,23 @@
+IP fixo rasp: 192.168.0.122 
+IP roteador: 192.168.0.1
+
+
+Descobrindo IP's:
+1) IP do roteador: entrar no cmd do notebook e digitar <ipconfig>
+2) Procurar por "Adaptador de rede sem fio wi-fi"
+3) Procurar por Gateway padrão. O IP será esse número
+
+Instalando mosquitto na raspberry:
+1) sudo apt update
+2) sudo apt install -y mosquitto mosquitto-clients
+Para que o mosquitto inicie assim que ligado: <sudo systemctl enable mosquitto.service>
+
+Habilitando SSH:
+1) Na linha de comando da rasp digitar: <sudo raspi-config>
+2) Selecionar interfacing options
+3) Selecionar SSH e habilitar o serviço
+4) Salvar as alterações
+5) Digitar no terminal: <sudo reboot>
+
+
+ 
