@@ -1,0 +1,16 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Bootstrap
+Flask-Script
+Flask-Admin
+Flask-Login
+mysqlclient
+Flask-MySQLdb
+Flask-Login
+python-decouple
+passlib
+pyjwt
+python-dotenv
+bcrypt
+Flask-MQTT

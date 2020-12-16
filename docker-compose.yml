@@ -2,7 +2,81 @@ version: '3'
 
 services:
   mqtt:
-    build: ./mqtt_broker
     container_name: mqtt_broker
+    build: ./mqtt_broker
+    restart: always
+    tty: true
     ports:
       - "1883:1883"
+    networks:
+      - network-internal
+  
+  status_machine:
+    container_name: status_machine
+    build: ./status_machine
+    restart: always
+    tty: true
+    command: python main.py
+    volumes: 
+      - ./status_machine:/app
+    networks:
+      - network-internal
+
+networks: 
+  network-internal:
+    driver: bridge
+
+"""
+  backend:
+    container_name: flask
+    build: ./backend
+    tty: true
+    command: python run.py
+    volumes: 
+      - .:/home/app
+    ports:
+      - '5000:5000'
+    depends_on: 
+      - db
+    networks:
+      - network-internal
+
+
+  frontend:
+    container_name: react
+    build: ./frontend
+    tty: true
+    volumes:
+        - './frontend:/app'
+    ports:
+        - '3001:3000'
+    environment:
+        - NODE_ENV=development
+    networks:
+      - network-internal
+  
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_DATABASE: 'db'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-flask-book:/var/lib/mysql
+    networks:
+      - network-internal
+
+  adminer:
+    image: adminer
+    ports:
+      - 8081:8080
+    networks:
+      - network-internal
+  
+volumes: 
+  mysql-mqtt:
+      external: true
+"""
+
+
