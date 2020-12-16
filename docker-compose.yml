@@ -21,62 +21,9 @@ services:
       - ./status_machine:/app
     networks:
       - network-internal
+    depends_on: 
+      - mqtt
 
 networks: 
   network-internal:
     driver: bridge
-
-"""
-  backend:
-    container_name: flask
-    build: ./backend
-    tty: true
-    command: python run.py
-    volumes: 
-      - .:/home/app
-    ports:
-      - '5000:5000'
-    depends_on: 
-      - db
-    networks:
-      - network-internal
-
-
-  frontend:
-    container_name: react
-    build: ./frontend
-    tty: true
-    volumes:
-        - './frontend:/app'
-    ports:
-        - '3001:3000'
-    environment:
-        - NODE_ENV=development
-    networks:
-      - network-internal
-  
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: 'admin'
-      MYSQL_DATABASE: 'db'
-    ports:
-      - '3306:3306'
-    volumes:
-      - mysql-flask-book:/var/lib/mysql
-    networks:
-      - network-internal
-
-  adminer:
-    image: adminer
-    ports:
-      - 8081:8080
-    networks:
-      - network-internal
-  
-volumes: 
-  mysql-mqtt:
-      external: true
-"""
-
-
